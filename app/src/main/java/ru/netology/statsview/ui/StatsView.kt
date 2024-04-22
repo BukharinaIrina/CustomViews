@@ -8,7 +8,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.withStyledAttributes
-import ru.netology.statsview.R
+import ru.netology.statsview.R.*
 import ru.netology.statsview.utils.AndroidUtils
 import kotlin.math.min
 import kotlin.random.Random
@@ -33,10 +33,10 @@ class StatsView @JvmOverloads constructor(
     private var colors = emptyList<Int>()
 
     init {
-        context.withStyledAttributes(attributeSet, R.styleable.StatsView) {
-            fontSize = getDimension(R.styleable.StatsView_fontSize, fontSize)
-            lineWidth = getDimension(R.styleable.StatsView_lineWidth, lineWidth)
-            val resId = getResourceId(R.styleable.StatsView_colors, 0)
+        context.withStyledAttributes(attributeSet, styleable.StatsView) {
+            fontSize = getDimension(styleable.StatsView_fontSize, fontSize)
+            lineWidth = getDimension(styleable.StatsView_lineWidth, lineWidth)
+            val resId = getResourceId(styleable.StatsView_colors, 0)
             colors = resources.getIntArray(resId).toList()
         }
     }
@@ -80,7 +80,7 @@ class StatsView @JvmOverloads constructor(
 
         var startAngle = -90F
         data.forEachIndexed { index, datum ->
-            val angle = (datum / data.sum()) * 360F
+            val angle = datum * 360F
             paint.color = colors.getOrElse(index) { randomColor() }
             canvas.drawArc(oval, startAngle, angle, false, paint)
             startAngle += angle
@@ -89,12 +89,12 @@ class StatsView @JvmOverloads constructor(
         canvas.drawPoint(center.x, center.y - radius, paint)
 
         canvas.drawText(
-            "%.2f%%".format(100.00),
+            "%.2f%%".format(data.sum() * 100.00),
             center.x,
             center.y + textPaint.textSize / 4,
             textPaint,
         )
     }
 
-    private fun randomColor() = Random.nextInt(0xFF000000.toInt(), 0xFFFFFFFF.toInt())
+    private fun randomColor() = Random.nextInt(color.black, color.white)
 }
