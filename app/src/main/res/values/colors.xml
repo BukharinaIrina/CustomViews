@@ -3,9 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <array name="colors">
-        <item>#6200EE</item>
-        <item>#03DAC5</item>
-        <item>#FFDE03</item>
-        <item>#FF0266</item>
+        <item>#FF6200EE</item>
+        <item>#FF03DAC5</item>
+        <item>#FFFFDE03</item>
+        <item>#FFFF0266</item>
     </array>
 </resources>
